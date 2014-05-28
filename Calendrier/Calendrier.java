@@ -2,13 +2,14 @@ package Calendrier;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 public class Calendrier extends JPanel {
 
@@ -52,29 +53,52 @@ public class Calendrier extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JLabel title;
+	private final JButton title;
 	private final JButton next, previous;
+	private final Color button_color = new Color(230, 230, 230);
 
 	public CalenderNavigation() {
 
-	    this.setSize(WINDOWS_WIDTH, NAVIGATION_HEIGHT);
-	    this.setBorder(BorderFactory.createLineBorder(Color.black));
+	    this.setSize(WINDOWS_WIDTH - 20, NAVIGATION_HEIGHT);
+	    this.setLocation(6, 0);
+	    GridLayout navigationLayout = new GridLayout(1, 3);
+
+	    navigationLayout.setHgap(10);
+	    this.setLayout(navigationLayout);
+
 	    next = new JButton("next");
+	    next.setBackground(button_color);
+	    next.setSize(WINDOWS_WIDTH, NAVIGATION_HEIGHT);
+
 	    previous = new JButton("previous");
-	    this.add(previous);
-	    title = new JLabel();
+	    previous.setSize(WINDOWS_WIDTH / 2 - 20, NAVIGATION_HEIGHT);
+	    previous.setBackground(button_color);
+
+	    title = new JButton();
+	    title.setBackground(button_color);
 	    title.setFont(Font.getFont(Font.SANS_SERIF));
+	    title.setSize(38, NAVIGATION_HEIGHT);
+
+	    this.add(previous);
 	    this.add(title);
 	    this.add(next);
-	    ;
 
 	}
 
+	/**
+	 * @brief mise à jour du titre de la navigation ce titre est en haut de
+	 *        la page
+	 * 
+	 * */
 	public void setTitleField(String text) {
 	    title.setText(text);
 
 	}
 
+	/**
+	 * @brief modifie l'action associée au bouton "précedent" C'est le
+	 *        bouton à gauche de la navigation
+	 * */
 	public void setPrevious(ActionListener actionListener) {
 	    for (ActionListener al : previous.getActionListeners()) {
 		previous.removeActionListener(al);
@@ -82,11 +106,25 @@ public class Calendrier extends JPanel {
 	    previous.addActionListener(actionListener);
 	}
 
+	/**
+	 * @brief modifie l'action associée au bouton "suivant" c'est le bouton
+	 *        à droite de la navigation.
+	 * */
 	public void setNext(ActionListener actionListener) {
 	    for (ActionListener al : next.getActionListeners()) {
 		next.removeActionListener(al);
 	    }
 	    next.addActionListener(actionListener);
+	}
+
+	/**
+	 * @brief modifie l'action associée à l'appui sur le titre
+	 * */
+	public void setTitleAction(ActionListener actionListener) {
+	    for (ActionListener al : title.getActionListeners()) {
+		title.removeActionListener(al);
+	    }
+	    title.addActionListener(actionListener);
 	}
     }
 }

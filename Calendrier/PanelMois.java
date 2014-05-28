@@ -1,36 +1,23 @@
 package Calendrier;
 
-import static Calendrier.Calendrier.MAIN_HEIGHT;
-import static Calendrier.Calendrier.NAVIGATION_HEIGHT;
-import static Calendrier.Calendrier.WINDOWS_WIDTH;
-
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import Calendrier.Calendrier.CalenderNavigation;
 
-public class PanelMois extends JPanel implements PanelData {
+public class PanelMois extends PanelDefault implements PanelData {
 
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
-    private final List<JButton> buttons;
-    private final CalenderNavigation navigation;
-    private final GregorianCalendar displayedCalendar;
-    Calendrier parent;
-    private static final Color DEFAULT_COLOR = new Color(238, 238, 238);
+    private static final long serialVersionUID = 6355653823004753713L;
 
     /**
      * @param cn
@@ -38,20 +25,8 @@ public class PanelMois extends JPanel implements PanelData {
      * @brief répond du look du calendrier
      * */
     public PanelMois(CalenderNavigation cn, Calendrier calendrier) {
-	super();
-	parent = calendrier;
-	this.navigation = cn;
-	displayedCalendar = new GregorianCalendar();
-	this.setSize(WINDOWS_WIDTH - 20, MAIN_HEIGHT);
+	super(cn, calendrier, 7, 8);
 
-	buttons = new ArrayList<JButton>();
-
-	// just some layout stuff nothing important mostly lazy positionning
-	GridLayout main = new GridLayout(7, 8);
-	this.setLayout(main);
-	this.setLocation(5, NAVIGATION_HEIGHT + 10);
-	main.setHgap(10);
-	main.setVgap(5);
 	int i = 6 * 7;
 	initTopLabels();
 
@@ -65,7 +40,22 @@ public class PanelMois extends JPanel implements PanelData {
 
 	setPreviousAction();
 	setNextAction();
+	setTitleAction();
+    }
 
+    /**
+     * @brief gère l'action produite par un click sur le titre dans le cas du
+     *        mois affiche l'année
+     * */
+    private void setTitleAction() {
+	navigation.setTitleAction(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent action) {
+		parent.remove(1);
+		parent.add(PanelBuilder.getBuilder().setToYearly().forYear(displayedCalendar.get(GregorianCalendar.YEAR)).getForShow());
+		parent.repaint();
+	    }
+	});
     }
 
     /**

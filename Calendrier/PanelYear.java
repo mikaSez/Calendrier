@@ -1,33 +1,19 @@
 package Calendrier;
 
-import static Calendrier.Calendrier.MAIN_HEIGHT;
-import static Calendrier.Calendrier.NAVIGATION_HEIGHT;
-import static Calendrier.Calendrier.WINDOWS_WIDTH;
-
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import Calendrier.Calendrier.CalenderNavigation;
 
-public class PanelYear extends JPanel implements PanelData {
+public class PanelYear extends PanelDefault implements PanelData {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    private final List<JButton> buttons;
-    private final CalenderNavigation navigation;
-    private final Calendrier parent;
-    private final GregorianCalendar displayedCalendar;
-    private static final Color DEFAULT_COLOR = new Color(238, 238, 238);
 
     private final static String[] mois = { "Décembre", "Novembre", "Octobre", "Septembre", "Août", "Juillet", "Juin", "Mai", "Avril", "Mars",
 	    "Fevrier", "Janvier" };
@@ -39,20 +25,7 @@ public class PanelYear extends JPanel implements PanelData {
      * @brief répond du look du calendrier
      * */
     public PanelYear(CalenderNavigation cn, Calendrier calendrier) {
-	super();
-	this.navigation = cn;
-	parent = calendrier;
-	displayedCalendar = new GregorianCalendar();
-	this.setSize(WINDOWS_WIDTH - 20, MAIN_HEIGHT);
-
-	buttons = new ArrayList<JButton>();
-
-	// just some layout stuff nothing important mostly lazy positionning
-	GridLayout main = new GridLayout(4, 3);
-	this.setLayout(main);
-	this.setLocation(5, NAVIGATION_HEIGHT + 10);
-	main.setHgap(10);
-	main.setVgap(5);
+	super(cn, calendrier, 4, 3);
 	int i = 4 * 3;
 	while (i-- != 0) {
 	    JButton but = new JButton(mois[i]);
