@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
 
 public class PanelMois extends PanelDefault implements PanelData {
 
@@ -95,6 +97,7 @@ public class PanelMois extends PanelDefault implements PanelData {
     public void processData(GregorianCalendar gregorianCalendar) {
 	gregorianCalendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
 
+	List<Serial> series = service.getSerialListForMonth(gregorianCalendar.getTime());
 	int lastDay = gregorianCalendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 	String currentMonth = new SimpleDateFormat("MMMMM YYYY").format(gregorianCalendar.getTime());
 	int firstDay = gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 1;
@@ -102,7 +105,7 @@ public class PanelMois extends PanelDefault implements PanelData {
 	GregorianCalendar lastMonth = (GregorianCalendar) gregorianCalendar.clone();
 	lastMonth.add(GregorianCalendar.MONTH, -1);
 	fillFirstWeek(lastMonth, gregorianCalendar.get(Calendar.WEEK_OF_MONTH), gregorianCalendar.get(Calendar.DAY_OF_WEEK));
-	fillCourantMonth(firstDay, lastDay, gregorianCalendar.get(Calendar.WEEK_OF_MONTH));
+	fillCourantMonth(firstDay, lastDay, gregorianCalendar.get(Calendar.WEEK_OF_MONTH), series);
 	fillLastWeek(firstDay, lastDay, gregorianCalendar.get(Calendar.WEEK_OF_MONTH));
 
 	navigation.setTitleField(currentMonth);
@@ -128,14 +131,32 @@ public class PanelMois extends PanelDefault implements PanelData {
      *            : le jour de la semaine où on finit
      * @param debutSemaine
      *            : la première semaine
+     * @param series
+     *            : les series qui passent ce mois
      * */
-    private void fillCourantMonth(int firstDay, int lastDay, int debutSemaine) {
+    private void fillCourantMonth(int firstDay, int lastDay, int debutSemaine, List<Serial> series) {
 	int debut = (debutSemaine * 7 + firstDay);
 	int fin = debut + lastDay;
 	int jours = 0;
+	boolean isDefault;
+
+	Calendar calendarDate = Calendar.getInstance();
+
 	for (; debut < fin; debut++) {
+	    isDefault = true;
 	    buttons.get(debut).setText(++jours + "");
-	    buttons.get(debut).setBackground(DEFAULT_COLOR);
+	    for (Serial serie : series) {
+		calendarDate.setTime(serie.getDate());
+
+		if (calendarDate.get(Calendar.DAY_OF_MONTH) == jours) {
+		    buttons.get(debut).setBackground(Color.GREEN);
+		    isDefault = false;
+		}
+	    }
+	    if (isDefault) {
+		buttons.get(debut).setBackground(DEFAULT_COLOR);
+	    }
+
 	}
 
     }

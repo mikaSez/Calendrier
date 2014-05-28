@@ -19,7 +19,11 @@ public class PanelBuilder {
 	return builder;
     }
 
-    public static PanelBuilder getBuilder(CalenderNavigation cn, Calendrier calendrier) {
+    /**
+     * @brief singleton fun.
+     * 
+     * */
+    public synchronized static PanelBuilder getBuilder(CalenderNavigation cn, Calendrier calendrier) {
 	if (builder == null) {
 	    builder = new PanelBuilder(cn);
 	    builder.calendrier = calendrier;

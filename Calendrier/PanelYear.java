@@ -1,13 +1,17 @@
 package Calendrier;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JButton;
 
 import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
 
 public class PanelYear extends PanelDefault implements PanelData {
     /**
@@ -45,6 +49,18 @@ public class PanelYear extends PanelDefault implements PanelData {
     @Override
     public void processData(GregorianCalendar gregorianCalendar) {
 	String currentYear = new SimpleDateFormat("YYYY").format(gregorianCalendar.getTime());
+	List<Serial> series = service.getSerialListForYear(gregorianCalendar.getTime());
+	for (JButton jb : buttons) {
+	    jb.setBackground(DEFAULT_COLOR);
+	}
+
+	if (!series.isEmpty()) {
+	    Calendar calendarDate = Calendar.getInstance();
+	    for (Serial serie : series) {
+		calendarDate.setTime(serie.getDate());
+		buttons.get(calendarDate.get(Calendar.MONTH)).setBackground(Color.GREEN);
+	    }
+	}
 	navigation.setTitleField(currentYear);
 
     }

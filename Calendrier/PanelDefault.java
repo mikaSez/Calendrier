@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.service.CalendrierService;
 
 public abstract class PanelDefault extends JPanel {
     /**
@@ -28,6 +29,11 @@ public abstract class PanelDefault extends JPanel {
     protected final GregorianCalendar displayedCalendar;
     protected static final Color DEFAULT_COLOR = new Color(238, 238, 238);
     private final GridLayout main;
+    protected static CalendrierService service;
+
+    static {
+	service = new CalendrierService();
+    }
 
     /**
      * @param cn
