@@ -24,10 +24,10 @@ public abstract class PanelDefault extends JPanel {
      * 
      */
     protected static final long serialVersionUID = 1L;
-    protected final List<JButton> buttons;
-    protected final CalenderNavigation navigation;
-    protected final Calendrier parent;
-    protected final GregorianCalendar displayedCalendar;
+    protected List<JButton> buttons;
+    protected CalenderNavigation navigation;
+    protected Calendrier parent;
+    protected GregorianCalendar displayedCalendar;
     protected static final Color DEFAULT_COLOR = new Color(238, 238, 238);
     private final GridLayout main;
     protected static CalendrierService service;
@@ -43,21 +43,34 @@ public abstract class PanelDefault extends JPanel {
      * */
     public PanelDefault(CalenderNavigation cn, Calendrier calendrier, int rows, int cols) {
 	super();
-	this.navigation = cn;
-	parent = calendrier;
-	displayedCalendar = new GregorianCalendar();
-	this.setSize(WINDOWS_WIDTH - 20, MAIN_HEIGHT);
-
-	buttons = new ArrayList<JButton>();
+	main = new GridLayout(rows, cols);
 
 	// just some layout stuff nothing important mostly lazy positionning
-	main = new GridLayout(rows, cols);
+
+	initialisation(cn, calendrier);
+
+    }
+
+    public PanelDefault(CalenderNavigation cn, Calendrier calendrier) {
+	super();
+	main = new GridLayout(1, 1);
+	initialisation(cn, calendrier);
+    }
+
+    private void initialisation(CalenderNavigation cn, Calendrier calendrier) {
+	this.navigation = cn;
+	this.parent = calendrier;
+	this.displayedCalendar = new GregorianCalendar();
+	this.setSize(WINDOWS_WIDTH - 20, MAIN_HEIGHT);
+	this.buttons = new ArrayList<JButton>();
+
+	// just some layout stuff nothing important mostly lazy positionning
+
 	this.setLayout(main);
 	this.setLocation(5, NAVIGATION_HEIGHT + 10);
 	main.setHgap(10);
 	main.setVgap(5);
 	setTitleAction();
-
     }
 
     protected void setLayoutCols(int cols) {
@@ -70,8 +83,10 @@ public abstract class PanelDefault extends JPanel {
 
     protected void clear() {
 	for (JButton jb : buttons) {
+
 	    jb.setBackground(DEFAULT_COLOR);
 	    jb.setToolTipText("");
+
 	}
     }
 

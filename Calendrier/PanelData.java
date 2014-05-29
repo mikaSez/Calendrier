@@ -36,4 +36,9 @@ public interface PanelData {
      * */
     public void processData();
 
+    /**
+     * @brief permet de forcer un jour
+     * */
+    public void setDayTo(int number);
+
 }

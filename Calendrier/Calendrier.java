@@ -1,6 +1,7 @@
 package Calendrier;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -77,6 +78,9 @@ public class Calendrier extends JPanel {
 	    title.setFont(Font.getFont(Font.SANS_SERIF));
 	    title.setSize(38, NAVIGATION_HEIGHT);
 
+	    previous.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    title.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    next.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    this.add(previous);
 	    this.add(title);
 	    this.add(next);

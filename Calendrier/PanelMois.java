@@ -1,6 +1,7 @@
 package Calendrier;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,9 @@ public class PanelMois extends PanelDefault implements PanelData {
      * 
      */
     private static final long serialVersionUID = 6355653823004753713L;
+    private final DayListener dayListener = new DayListener();
+    private final static int NB_ROW = 7;
+    private final static int NB_COLUMN = 8;
 
     /**
      * @param cn
@@ -27,9 +31,9 @@ public class PanelMois extends PanelDefault implements PanelData {
      * @brief répond du look du calendrier
      * */
     public PanelMois(CalenderNavigation cn, Calendrier calendrier) {
-	super(cn, calendrier, 7, 8);
+	super(cn, calendrier, NB_ROW, NB_COLUMN);
 
-	int i = 6 * 7;
+	int i = (NB_ROW - 1) * (NB_COLUMN - 1);
 	initTopLabels();
 
 	while (i-- != 0) {
@@ -97,11 +101,12 @@ public class PanelMois extends PanelDefault implements PanelData {
     public void processData(GregorianCalendar gregorianCalendar) {
 	gregorianCalendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
 	clear();
+	clearButton();
 	List<Serial> series = service.getSerialListForMonth(gregorianCalendar.getTime());
 	int lastDay = gregorianCalendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 	String currentMonth = new SimpleDateFormat("MMMMM YYYY").format(gregorianCalendar.getTime());
 	int firstDay = gregorianCalendar.get(Calendar.DAY_OF_WEEK) - 1;
-	// on rempli le mois précedant
+	// on rempli le mois précedent
 	GregorianCalendar lastMonth = (GregorianCalendar) gregorianCalendar.clone();
 	lastMonth.add(GregorianCalendar.MONTH, -1);
 	fillFirstWeek(lastMonth, gregorianCalendar.get(Calendar.WEEK_OF_MONTH), gregorianCalendar.get(Calendar.DAY_OF_WEEK));
@@ -109,6 +114,18 @@ public class PanelMois extends PanelDefault implements PanelData {
 	fillLastWeek(firstDay, lastDay, gregorianCalendar.get(Calendar.WEEK_OF_MONTH));
 
 	navigation.setTitleField(currentMonth);
+
+    }
+
+    private void clearButton() {
+
+	for (JButton jb : buttons) {
+
+	    jb.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	    for (ActionListener al : jb.getActionListeners()) {
+		jb.removeActionListener(al);
+	    }
+	}
 
     }
 
@@ -144,20 +161,24 @@ public class PanelMois extends PanelDefault implements PanelData {
 
 	for (; debut < fin; debut++) {
 	    isDefault = true;
-	    buttons.get(debut).setText(++jours + "");
+	    JButton jButton = buttons.get(debut);
+
+	    jButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    jButton.setText(++jours + "");
+	    jButton.addActionListener(dayListener);
 	    for (Serial serie : series) {
 		calendarDate.setTime(serie.getDate());
 
 		if (calendarDate.get(Calendar.DAY_OF_MONTH) == jours) {
-		    buttons.get(debut).setBackground(Color.GREEN);
-		    String toolTip = constructToolTip(serie, buttons.get(calendarDate.get(Calendar.DAY_OF_MONTH)).getToolTipText());
+		    jButton.setBackground(Color.GREEN);
+		    String toolTip = constructToolTip(serie, jButton.getToolTipText());
 
-		    buttons.get(debut).setToolTipText(toolTip);
+		    jButton.setToolTipText(toolTip);
 		    isDefault = false;
 		}
 	    }
 	    if (isDefault) {
-		buttons.get(debut).setBackground(DEFAULT_COLOR);
+		jButton.setBackground(DEFAULT_COLOR);
 	    }
 
 	}
@@ -235,9 +256,35 @@ public class PanelMois extends PanelDefault implements PanelData {
     }
 
     @Override
+    public void setDayTo(int number) {
+	return;
+
+    }
+
+    @Override
     public void processData() {
 	processData(displayedCalendar);
 
+    }
+
+    /**
+     * @brief listener pour les boutons des jours
+     * */
+    private class DayListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	    JButton jb = (JButton) e.getSource();
+	    PanelBuilder pb = PanelBuilder.getBuilder();
+	    pb.setToDaily();
+	    pb.forYear(displayedCalendar.get(GregorianCalendar.YEAR));
+	    pb.forMonth(displayedCalendar.get(GregorianCalendar.MONTH));
+	    pb.forDay(Integer.parseInt(jb.getText()));
+	    parent.remove(1);
+	    parent.add(pb.getForShow());
+	    parent.repaint();
+
+	}
     }
 
 }

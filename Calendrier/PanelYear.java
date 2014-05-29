@@ -1,6 +1,7 @@
 package Calendrier;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -21,7 +22,10 @@ public class PanelYear extends PanelDefault implements PanelData {
 
     private final static String[] mois = { "Décembre", "Novembre", "Octobre", "Septembre", "Août", "Juillet", "Juin", "Mai", "Avril", "Mars",
 	    "Fevrier", "Janvier" };
-    private final MonthListener ml = new MonthListener();
+    private final MonthListener monthListener = new MonthListener();
+
+    private final static int NB_ROW = 4;
+    private final static int NB_COLUMN = 3;
 
     /**
      * @param cn
@@ -29,12 +33,13 @@ public class PanelYear extends PanelDefault implements PanelData {
      * @brief répond du look du calendrier
      * */
     public PanelYear(CalenderNavigation cn, Calendrier calendrier) {
-	super(cn, calendrier, 4, 3);
-	int i = 4 * 3;
+	super(cn, calendrier, NB_ROW, NB_COLUMN);
+	int i = NB_ROW * NB_COLUMN;
 	while (i-- != 0) {
 	    JButton but = new JButton(mois[i]);
 	    but.setBackground(DEFAULT_COLOR);
-	    but.addActionListener(ml);
+	    but.addActionListener(monthListener);
+	    but.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    this.add(but);
 	    buttons.add(but);
 
@@ -56,10 +61,11 @@ public class PanelYear extends PanelDefault implements PanelData {
 	    for (Serial serie : series) {
 
 		calendarDate.setTime(serie.getDate());
-		buttons.get(calendarDate.get(Calendar.MONTH)).setBackground(Color.GREEN);
-		String toolTip = constructToolTip(serie, buttons.get(calendarDate.get(Calendar.MONTH)).getToolTipText());
+		JButton jButton = buttons.get(calendarDate.get(Calendar.MONTH));
+		jButton.setBackground(Color.GREEN);
+		String toolTip = constructToolTip(serie, jButton.getToolTipText());
 
-		buttons.get(calendarDate.get(Calendar.MONTH)).setToolTipText(toolTip);
+		jButton.setToolTipText(toolTip);
 		;
 	    }
 	}
@@ -107,7 +113,7 @@ public class PanelYear extends PanelDefault implements PanelData {
 	    JButton jb = (JButton) e.getSource();
 
 	    parent.remove(1);
-	    parent.add(PanelBuilder.getBuilder().setToMonthly().setMonth(buttons.indexOf(jb)).forYear(displayedCalendar.get(GregorianCalendar.YEAR))
+	    parent.add(PanelBuilder.getBuilder().setToMonthly().forMonth(buttons.indexOf(jb)).forYear(displayedCalendar.get(GregorianCalendar.YEAR))
 		    .getForShow());
 	    parent.repaint();
 
@@ -127,6 +133,12 @@ public class PanelYear extends PanelDefault implements PanelData {
     @Override
     public void processData() {
 	processData(displayedCalendar);
+
+    }
+
+    @Override
+    public void setDayTo(int number) {
+	return;
 
     }
 }

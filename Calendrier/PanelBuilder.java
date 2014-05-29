@@ -31,13 +31,27 @@ public class PanelBuilder {
 	return builder;
     }
 
+    /**
+     * @brief reset la date
+     * */
     public PanelBuilder setToMonthly() {
 	panel = new PanelMois(navigation, calendrier);
 	return this;
     }
 
+    /**
+     * @brief reset la date
+     * */
     public PanelBuilder setToYearly() {
 	panel = new PanelYear(navigation, calendrier);
+	return this;
+    }
+
+    /**
+     * @brief reset la date
+     * */
+    public PanelBuilder setToDaily() {
+	panel = new PanelDay(navigation, calendrier);
 	return this;
     }
 
@@ -52,7 +66,13 @@ public class PanelBuilder {
 
     }
 
-    public PanelBuilder setMonth(int number) {
+    public PanelBuilder forDay(int number) {
+	panel.setDayTo(number);
+	return this;
+
+    }
+
+    public PanelBuilder forMonth(int number) {
 	panel.setMonthTo(number);
 	return this;
     }

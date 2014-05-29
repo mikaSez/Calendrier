@@ -114,8 +114,9 @@ public class Serial {
 	return synopsis;
     }
 
-    public void setSynopsis(String synopsis) {
+    public Serial setSynopsis(String synopsis) {
 	this.synopsis = synopsis;
+	return this;
     }
 
     public String getImgSrc() {
@@ -166,4 +167,28 @@ public class Serial {
 	this.numSaison = numSaison;
     }
 
+    public String toDisplay() {
+	StringBuilder sb = new StringBuilder();
+	sb.append("<html>");
+	sb.append("<strong>Title</strong>:").append(this.title);
+	sb.append("<br/>");
+	sb.append("<strong>Saison</strong>:").append(numSaison).append(" <strong>Serie</strong>:").append(numSerie);
+	sb.append("<br/>");
+	sb.append("<strong>Genre</strong>:").append(genre);
+	sb.append("<hr/>");
+	sb.append("<br/>");
+	if (synopsis != null) {
+	    sb.append("Résumé").append("<br/>");
+
+	    if (synopsis.length() > 140) {
+		sb.append(synopsis.substring(0, 140));
+		sb.append("...");
+	    } else {
+		sb.append(synopsis);
+	    }
+
+	}
+	sb.append("</html>");
+	return sb.toString();
+    }
 }
