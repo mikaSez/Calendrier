@@ -32,6 +32,7 @@ public class Calendrier extends JPanel {
     }
 
     public static void main(String[] args) {
+
 	JFrame application = new JFrame();
 	application.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	application.setLocation(200, 100);

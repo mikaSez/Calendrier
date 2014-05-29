@@ -27,12 +27,11 @@ public class SerialsDaoMockTest {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
-	assertEquals(3, service.getSerialListForYear(sdf.parse("2013/12/20")).size());
+	assertEquals(4, service.getSerialListForYear(sdf.parse("2013/12/20")).size());
 	assertEquals(1, service.getSerialListForYear(sdf.parse("2010/12/20")).size());
 	assertEquals(1, service.getSerialListForMonth(sdf.parse("2010/10/20")).size());
-	assertEquals(2, service.getSerialListForMonth(sdf.parse("2013/09/20")).size());
+	assertEquals(0, service.getSerialListForMonth(sdf.parse("2013/09/20")).size());
 	assertEquals(1, service.getSerialListForDay(sdf.parse("2010/10/20")).size());
-	assertEquals(2, service.getSerialListForDay(sdf.parse("2013/09/20")).size());
 
     }
 
