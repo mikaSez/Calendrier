@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import Calendrier.Calendrier.CalenderNavigation;
 import Calendrier.dto.Serial;
 
-public class PanelDay extends PanelDefault implements PanelData {
+public class PanelDay extends PanelDefault {
 
     /**
      * 
@@ -105,30 +105,6 @@ public class PanelDay extends PanelDefault implements PanelData {
 		parent.repaint();
 	    }
 	});
-    }
-
-    @Override
-    public void setMonthTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.MONTH, number);
-
-    }
-
-    @Override
-    public void setYearTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.YEAR, number);
-
-    }
-
-    @Override
-    public void setDayTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.DAY_OF_MONTH, number);
-
-    }
-
-    @Override
-    public void processData() {
-	processData(displayedCalendar);
-
     }
 
 }

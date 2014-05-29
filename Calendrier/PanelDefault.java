@@ -19,7 +19,7 @@ import Calendrier.Calendrier.CalenderNavigation;
 import Calendrier.dto.Serial;
 import Calendrier.service.CalendrierService;
 
-public abstract class PanelDefault extends JPanel {
+public abstract class PanelDefault extends JPanel implements PanelData {
     /**
      * 
      */
@@ -117,5 +117,29 @@ public abstract class PanelDefault extends JPanel {
 	    public void actionPerformed(ActionEvent action) {
 	    }
 	});
+    }
+
+    @Override
+    public void setMonthTo(int number) {
+	this.displayedCalendar.set(GregorianCalendar.MONTH, number);
+
+    }
+
+    @Override
+    public void setYearTo(int number) {
+	this.displayedCalendar.set(GregorianCalendar.YEAR, number);
+
+    }
+
+    @Override
+    public void setDayTo(int number) {
+	this.displayedCalendar.set(GregorianCalendar.DAY_OF_MONTH, number);
+
+    }
+
+    @Override
+    public void processData() {
+	processData(displayedCalendar);
+
     }
 }

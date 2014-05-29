@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import Calendrier.Calendrier.CalenderNavigation;
 import Calendrier.dto.Serial;
 
-public class PanelMois extends PanelDefault implements PanelData {
+public class PanelMois extends PanelDefault {
 
     /**
      * 
@@ -243,28 +243,6 @@ public class PanelMois extends PanelDefault implements PanelData {
 	this.add(label, 6);
 	label = new JLabel("Samedi");
 	this.add(label, 7);
-    }
-
-    @Override
-    public void setMonthTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.MONTH, number);
-    }
-
-    @Override
-    public void setYearTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.YEAR, number);
-    }
-
-    @Override
-    public void setDayTo(int number) {
-	return;
-
-    }
-
-    @Override
-    public void processData() {
-	processData(displayedCalendar);
-
     }
 
     /**

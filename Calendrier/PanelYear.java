@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import Calendrier.Calendrier.CalenderNavigation;
 import Calendrier.dto.Serial;
 
-public class PanelYear extends PanelDefault implements PanelData {
+public class PanelYear extends PanelDefault {
     /**
      * 
      */
@@ -120,25 +120,4 @@ public class PanelYear extends PanelDefault implements PanelData {
 	}
     }
 
-    @Override
-    public void setMonthTo(int number) {
-	return;
-    }
-
-    @Override
-    public void setYearTo(int number) {
-	this.displayedCalendar.set(GregorianCalendar.YEAR, number);
-    }
-
-    @Override
-    public void processData() {
-	processData(displayedCalendar);
-
-    }
-
-    @Override
-    public void setDayTo(int number) {
-	return;
-
-    }
 }
