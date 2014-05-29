@@ -2,7 +2,7 @@ package Calendrier;
 
 import java.util.GregorianCalendar;
 
-public interface PanelData {
+interface PanelData {
 
     /**
      * @brief s'occupe de l'affichage en utilisant le calendrier fourni

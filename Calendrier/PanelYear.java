@@ -1,18 +1,16 @@
 package Calendrier;
 
-import java.awt.Color;
-import java.awt.Cursor;
+import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import javax.swing.JButton;
-
-import Calendrier.Calendrier.CalenderNavigation;
-import Calendrier.dto.Serial;
 
 public class PanelYear extends PanelDefault {
     /**
@@ -22,14 +20,13 @@ public class PanelYear extends PanelDefault {
 
     private final static String[] mois = { "Décembre", "Novembre", "Octobre", "Septembre", "Août", "Juillet", "Juin", "Mai", "Avril", "Mars",
 	    "Fevrier", "Janvier" };
-    private final MonthListener monthListener = new MonthListener();
 
     private final static int NB_ROW = 4;
     private final static int NB_COLUMN = 3;
 
     /**
-     * @param cn
-     * @param calendrier
+     * @param cn la fenetre de navigation
+     * @param calendrier l'appli
      * @brief répond du look du calendrier
      * */
     public PanelYear(CalenderNavigation cn, Calendrier calendrier) {
@@ -38,7 +35,8 @@ public class PanelYear extends PanelDefault {
 	while (i-- != 0) {
 	    JButton but = new JButton(mois[i]);
 	    but.setBackground(DEFAULT_COLOR);
-	    but.addActionListener(monthListener);
+        MonthListener monthListener = new MonthListener();
+        but.addActionListener(monthListener);
 	    but.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    this.add(but);
 	    buttons.add(but);
@@ -66,8 +64,7 @@ public class PanelYear extends PanelDefault {
 		String toolTip = constructToolTip(serie, jButton.getToolTipText());
 
 		jButton.setToolTipText(toolTip);
-		;
-	    }
+        }
 	}
 	navigation.setTitleField(currentYear);
 

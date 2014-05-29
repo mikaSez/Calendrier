@@ -1,7 +1,10 @@
 package Calendrier;
 
-import java.awt.Color;
-import java.awt.Cursor;
+import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -9,21 +12,15 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import Calendrier.Calendrier.CalenderNavigation;
-import Calendrier.dto.Serial;
-
 public class PanelMois extends PanelDefault {
 
     /**
      * 
      */
     private static final long serialVersionUID = 6355653823004753713L;
-    private final DayListener dayListener = new DayListener();
     private final static int NB_ROW = 7;
     private final static int NB_COLUMN = 8;
+    private final DayListener dayListener = new DayListener();
 
     /**
      * @param cn
@@ -95,7 +92,7 @@ public class PanelMois extends PanelDefault {
     }
 
     /**
-     * @see {@link PanelMain}
+     * @see {@link PanelData}
      * */
     @Override
     public void processData(GregorianCalendar gregorianCalendar) {
@@ -190,9 +187,10 @@ public class PanelMois extends PanelDefault {
      *        debutSemaine*7 + (jourSemaine-1);
      * @param lastMonth
      *            le mois d'avant
-     * @param j
+     * @param debutSemaine
      *            le début de la semaine
-     * @param k
+     * @param jourSemaine :
+     *                    nombre de jours depuis le début de la semaine
      * */
     private void fillFirstWeek(GregorianCalendar lastMonth, int debutSemaine, int jourSemaine) {
 	int jours = lastMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);

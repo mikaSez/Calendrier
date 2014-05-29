@@ -155,7 +155,7 @@ public class Serial {
 	return numSerie;
     }
 
-    public void setNumSerie(int numSerie) {
+    void setNumSerie(int numSerie) {
 	this.numSerie = numSerie;
     }
 
@@ -163,7 +163,7 @@ public class Serial {
 	return numSaison;
     }
 
-    public void setNumSaison(int numSaison) {
+    void setNumSaison(int numSaison) {
 	this.numSaison = numSaison;
     }
 

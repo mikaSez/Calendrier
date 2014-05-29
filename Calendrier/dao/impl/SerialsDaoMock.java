@@ -1,5 +1,8 @@
 package Calendrier.dao.impl;
 
+import Calendrier.dao.SerialsDao;
+import Calendrier.dto.Serial;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,12 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import Calendrier.dao.SerialsDao;
-import Calendrier.dto.Serial;
-
 public class SerialsDaoMock implements SerialsDao {
 
-    static List<Serial> series;
+    private static final List<Serial> series;
 
     static {
 	series = new ArrayList<Serial>();

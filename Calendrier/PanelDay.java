@@ -1,19 +1,15 @@
 package Calendrier;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
+import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import Calendrier.Calendrier.CalenderNavigation;
-import Calendrier.dto.Serial;
 
 public class PanelDay extends PanelDefault {
 

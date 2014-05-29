@@ -1,9 +1,9 @@
 package Calendrier.dao;
 
+import Calendrier.dto.Serial;
+
 import java.util.Date;
 import java.util.List;
-
-import Calendrier.dto.Serial;
 
 public interface SerialsDao {
     public List<Serial> getSerialListForDay(Date date);

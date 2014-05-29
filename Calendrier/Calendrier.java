@@ -1,14 +1,8 @@
 package Calendrier;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Calendrier extends JPanel {
 
@@ -18,15 +12,14 @@ public class Calendrier extends JPanel {
     public static final int MAIN_HEIGHT = 430;
 
     private static final long serialVersionUID = 4325406721569230614L;
-    private final PanelBuilder pb;
 
-    public Calendrier() {
+    private Calendrier() {
 
 	this.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	this.setLayout(null);
 	CalenderNavigation cn = new CalenderNavigation();
 	this.add(cn);
-	pb = PanelBuilder.getBuilder(cn, this);
+    PanelBuilder pb = PanelBuilder.getBuilder(cn, this);
 	this.add(pb.setToYearly().getForShow());
 
     }
@@ -36,7 +29,7 @@ public class Calendrier extends JPanel {
 	JFrame application = new JFrame();
 	application.setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	application.setLocation(200, 100);
-	application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	application.setLayout(null);
 	application.setResizable(false);
 	application.add(new Calendrier());
@@ -89,6 +82,7 @@ public class Calendrier extends JPanel {
 	}
 
 	/**
+     *
 	 * @brief mise à jour du titre de la navigation ce titre est en haut de
 	 *        la page
 	 * 

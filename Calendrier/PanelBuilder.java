@@ -1,13 +1,13 @@
 package Calendrier;
 
-import javax.swing.JComponent;
-
 import Calendrier.Calendrier.CalenderNavigation;
 
+import javax.swing.*;
+
 public class PanelBuilder {
-    private PanelData panel;
-    private final CalenderNavigation navigation;
     private static PanelBuilder builder;
+    private final CalenderNavigation navigation;
+    private PanelData panel;
     private Calendrier calendrier;
 
     private PanelBuilder(CalenderNavigation cn) {

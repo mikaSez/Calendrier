@@ -1,47 +1,41 @@
 package Calendrier;
 
-import static Calendrier.Calendrier.MAIN_HEIGHT;
-import static Calendrier.Calendrier.NAVIGATION_HEIGHT;
-import static Calendrier.Calendrier.WINDOWS_WIDTH;
+import Calendrier.Calendrier.*;
+import Calendrier.dto.Serial;
+import Calendrier.service.CalendrierService;
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import Calendrier.Calendrier.CalenderNavigation;
-import Calendrier.dto.Serial;
-import Calendrier.service.CalendrierService;
+import static Calendrier.Calendrier.*;
 
 public abstract class PanelDefault extends JPanel implements PanelData {
     /**
      * 
      */
     protected static final long serialVersionUID = 1L;
-    protected List<JButton> buttons;
-    protected CalenderNavigation navigation;
-    protected Calendrier parent;
-    protected GregorianCalendar displayedCalendar;
-    protected static final Color DEFAULT_COLOR = new Color(238, 238, 238);
-    private final GridLayout main;
-    protected static CalendrierService service;
-
+    static final Color DEFAULT_COLOR = new Color(238, 238, 238);
+    static final CalendrierService service;
     static {
 	service = new CalendrierService();
     }
+    private final GridLayout main;
+    List<JButton> buttons;
+    CalenderNavigation navigation;
+    Calendrier parent;
+    GregorianCalendar displayedCalendar;
 
     /**
-     * @param cn
-     * @param calendrier
+     * @param cn la navigation
+     * @param calendrier l'appli
      * @brief répond du look du calendrier
      * */
-    public PanelDefault(CalenderNavigation cn, Calendrier calendrier, int rows, int cols) {
+    PanelDefault(CalenderNavigation cn, Calendrier calendrier, int rows, int cols) {
 	super();
 	main = new GridLayout(rows, cols);
 
@@ -51,7 +45,7 @@ public abstract class PanelDefault extends JPanel implements PanelData {
 
     }
 
-    public PanelDefault(CalenderNavigation cn, Calendrier calendrier) {
+    PanelDefault(CalenderNavigation cn, Calendrier calendrier) {
 	super();
 	main = new GridLayout(1, 1);
 	initialisation(cn, calendrier);
@@ -77,11 +71,11 @@ public abstract class PanelDefault extends JPanel implements PanelData {
 	main.setColumns(cols);
     }
 
-    protected void setLayoutRows(int rows) {
+    void setLayoutRows(int rows) {
 	main.setRows(rows);
     }
 
-    protected void clear() {
+    void clear() {
 	for (JButton jb : buttons) {
 
 	    jb.setBackground(DEFAULT_COLOR);
@@ -90,7 +84,7 @@ public abstract class PanelDefault extends JPanel implements PanelData {
 	}
     }
 
-    protected String constructToolTip(Serial serie, String data) {
+    String constructToolTip(Serial serie, String data) {
 	StringBuilder sb = new StringBuilder();
 	sb.append("<html>");
 	if (data != null) {
@@ -100,9 +94,9 @@ public abstract class PanelDefault extends JPanel implements PanelData {
 
 	    sb.append("<hr/>");
 	}
-	sb.append("<br/><strong> Title : </strong>" + serie.getTitle());
-	sb.append("<br/><strong> Saison </strong>:" + serie.getNumSaison());
-	sb.append("<br/> <strong>Série </strong>:" + serie.getNumSerie());
+	sb.append("<br/><strong> Title : </strong>").append(serie.getTitle());
+	sb.append("<br/><strong> Saison </strong>:").append(serie.getNumSaison());
+	sb.append("<br/> <strong>Série </strong>:").append(serie.getNumSerie());
 
 	sb.append("</html>");
 	return sb.toString();
