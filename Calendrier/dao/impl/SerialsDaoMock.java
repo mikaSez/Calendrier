@@ -23,7 +23,7 @@ public class SerialsDaoMock implements SerialsDao {
 
 	series.add(new Serial("D.B. Weiss", "Game of Thrones", "Fantasy,Action", sdf.parse("2013/12/20"), 4, 2));
 	series.add(new Serial("Vince Gilligan", "Breaking Bad", "Drame, Thriller, Comedie noire", sdf.parse("2013/09/20"), 12, 5));
-	series.add(new Serial("Vince Gilligan", "Breaking Bad", "Drame, Thriller, Comedie noire", sdf.parse("2013/09/20"), 13, 5));
+	series.add(new Serial("Vince Gilligan", "Breaking Bad", "Drame, Thriller, Comedie noire", sdf.parse("2013/09/21"), 13, 5));
 	series.add(new Serial("Tim Kring", "Heroes", "Fantasy,Action", sdf.parse("2010/10/20"), 12, 1));
     }
 

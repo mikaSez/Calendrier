@@ -50,15 +50,17 @@ public class PanelYear extends PanelDefault implements PanelData {
     public void processData(GregorianCalendar gregorianCalendar) {
 	String currentYear = new SimpleDateFormat("YYYY").format(gregorianCalendar.getTime());
 	List<Serial> series = service.getSerialListForYear(gregorianCalendar.getTime());
-	for (JButton jb : buttons) {
-	    jb.setBackground(DEFAULT_COLOR);
-	}
-
+	clear();
 	if (!series.isEmpty()) {
 	    Calendar calendarDate = Calendar.getInstance();
 	    for (Serial serie : series) {
+
 		calendarDate.setTime(serie.getDate());
 		buttons.get(calendarDate.get(Calendar.MONTH)).setBackground(Color.GREEN);
+		String toolTip = constructToolTip(serie, buttons.get(calendarDate.get(Calendar.MONTH)).getToolTipText());
+
+		buttons.get(calendarDate.get(Calendar.MONTH)).setToolTipText(toolTip);
+		;
 	    }
 	}
 	navigation.setTitleField(currentYear);

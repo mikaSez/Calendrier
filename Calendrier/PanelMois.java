@@ -96,7 +96,7 @@ public class PanelMois extends PanelDefault implements PanelData {
     @Override
     public void processData(GregorianCalendar gregorianCalendar) {
 	gregorianCalendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
-
+	clear();
 	List<Serial> series = service.getSerialListForMonth(gregorianCalendar.getTime());
 	int lastDay = gregorianCalendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 	String currentMonth = new SimpleDateFormat("MMMMM YYYY").format(gregorianCalendar.getTime());
@@ -150,6 +150,9 @@ public class PanelMois extends PanelDefault implements PanelData {
 
 		if (calendarDate.get(Calendar.DAY_OF_MONTH) == jours) {
 		    buttons.get(debut).setBackground(Color.GREEN);
+		    String toolTip = constructToolTip(serie, buttons.get(calendarDate.get(Calendar.DAY_OF_MONTH)).getToolTipText());
+
+		    buttons.get(debut).setToolTipText(toolTip);
 		    isDefault = false;
 		}
 	    }

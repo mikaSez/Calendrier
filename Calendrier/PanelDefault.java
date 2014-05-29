@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Calendrier.Calendrier.CalenderNavigation;
+import Calendrier.dto.Serial;
 import Calendrier.service.CalendrierService;
 
 public abstract class PanelDefault extends JPanel {
@@ -65,6 +66,31 @@ public abstract class PanelDefault extends JPanel {
 
     protected void setLayoutRows(int rows) {
 	main.setRows(rows);
+    }
+
+    protected void clear() {
+	for (JButton jb : buttons) {
+	    jb.setBackground(DEFAULT_COLOR);
+	    jb.setToolTipText("");
+	}
+    }
+
+    protected String constructToolTip(Serial serie, String data) {
+	StringBuilder sb = new StringBuilder();
+	sb.append("<html>");
+	if (data != null) {
+	    data = data.replaceAll("<html>", "");
+	    data = data.replaceAll("</html>", "");
+	    sb.append(data);
+
+	    sb.append("<hr/>");
+	}
+	sb.append("<br/><strong> Title : </strong>" + serie.getTitle());
+	sb.append("<br/><strong> Saison </strong>:" + serie.getNumSaison());
+	sb.append("<br/> <strong>Série </strong>:" + serie.getNumSerie());
+
+	sb.append("</html>");
+	return sb.toString();
     }
 
     /**
